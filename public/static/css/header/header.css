@@ -1,0 +1,45 @@
+.headerArea {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 6.4rem;
+  align-items: center;
+  border-bottom: 2px solid #544b4b48;
+}
+.logo{
+
+}
+.menu {
+  display: flex;
+  align-items: center;
+}
+.menu nav a {
+  position: relative;
+  margin-left: 3.2rem;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #313131;
+  transition: 1s ease;
+}
+.menu nav a:before {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: .2rem;
+  background: #8D0DBE;
+  bottom: -3.9rem;
+  transition: 0.5s;
+  visibility: hidden;
+}
+.menu nav a:hover:before {
+  width: 100%;
+  visibility: visible;
+}
+.nav-btn{
+  margin-left: 3.2rem;
+}
+.nav-btn a{
+  margin-left: .8rem;
+  padding:.8rem 3.2rem;
+  text-decoration: none;
+}

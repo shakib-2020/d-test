@@ -1,0 +1,23 @@
+.hero-area {
+  padding: 0 20.5rem;
+  display: flex;
+  gap: 3.2rem;
+  flex-direction: column;
+}
+.hero-btn a{
+  margin-left: .8rem;
+  padding:.8rem 3.2rem;
+  text-decoration: none;
+}
+.hero-btn a:nth-child(1){
+  background-color: #005fbe99;
+}
+.hero-btn a:hover:nth-child(1){
+  color: #00040899;
+}
+.hero-btn a:nth-child(2){
+  background-color: #D22F2F;
+}
+.hero-btn a:hover:nth-child(2){
+  color: #00040899;
+}

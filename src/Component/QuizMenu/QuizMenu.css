@@ -1,0 +1,8 @@
+.quiz-menu {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-wrap: wrap;
+  padding: 10% 23%;
+  gap: 1.6rem;
+}

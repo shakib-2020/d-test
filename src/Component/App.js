@@ -1,16 +1,22 @@
 import React from "react";
-import Footer from "./Footer/Footer";
-import Header from "./Header/Header";
-import Hero from "./Hero/Hero";
-import QuizList from "./QuizListArea/QuizList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import "../index.css";
+import Home from "./Home/Home";
+import QuizMenu from "./QuizMenu/QuizMenu";
 
 function App() {
+  const quizState = useSelector((state) => state.quizState.value);
+
+  console.log(quizState);
   return (
     <>
-      <Header />
-      <Hero />
-      <QuizList />
-      <Footer />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/quizMenu" element={<QuizMenu />} />
+        </Routes>
+      </Router>
     </>
   );
 }
