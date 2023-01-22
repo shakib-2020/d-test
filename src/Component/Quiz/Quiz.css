@@ -57,3 +57,13 @@
   border: 1px solid #8d0dbe;
   color: #8d0dbe;
 }
+.quiz-action-btn button.submit {
+  background: #cf0c0c;
+  border: 1px solid #cf0c0c;
+  color: #fdfdfd;
+}
+.quiz-action-btn button.submit:hover {
+  background: #ad0909;
+  border: 1px solid #cf0c0c;
+  color: #fdfdfd;
+}

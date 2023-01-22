@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Quiz from "../Quiz/Quiz";
 import { useLocation } from "react-router-dom";
+import Result from "../Result/Result";
 
 const QuizMenu = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const QuizMenu = () => {
           </button>
         </div>
       )}
-      {quizState === "running" && <Quiz question={quizData.question} />}
+      {quizState === "running" && (
+        <Quiz title={quizData.title} question={quizData.question} />
+      )}
     </>
   );
 };

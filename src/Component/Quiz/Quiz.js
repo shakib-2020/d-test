@@ -1,45 +1,49 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setRegAns, resetRegAns } from "../../app/quiz/quizResultSlice";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import Result from "../Result/Result";
 import "./Quiz.css";
 
-const Quiz = ({ question }) => {
+const Quiz = ({ title, question }) => {
+  // states
+  const [checked, setChecked] = useState("");
   const [currentQues, setCurrentQues] = useState(0);
-  const [selectedAns, setSelectedAns] = useState([]);
-  const [checkValue, setCheckValue] = useState("");
-  const [submit, setSubmit] = useState(false);
-  const [tempResult, setTempResult] = useState(0);
+  const [answerdList, setAnsweredList] = useState({});
 
+  // variable
   const { ques, ans, option } = question[currentQues];
+  const regAns = useSelector((state) => state.resultState.value.regAns);
 
-  const handleChange = (e) => {
-    const { value, checked } = e.target;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    setSelectedAns(value);
-    console.log(checked);
-    setCheckValue(value);
+  // handle changes
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setChecked(value);
+    dispatch(setRegAns({ value, currentQues }));
   };
-
-  const handleNext = (e) => {
-    if (question.length - 1 === currentQues) {
-      setSubmit(true);
-
-      if (selectedAns === ans) {
-        setTempResult(tempResult + 1);
-      }
-      setCheckValue("");
-
-      console.log(selectedAns);
+  // handle next
+  const handleNext = () => {
+    setCurrentQues(currentQues + 1);
+    if (!regAns[currentQues + 1]) {
+      setChecked("");
     } else {
-      setCurrentQues(currentQues + 1);
-      if (selectedAns === ans) {
-        setTempResult(tempResult + 1);
-      }
-      setCheckValue("");
+      setChecked(regAns[currentQues + 1]);
     }
+    console.log(regAns);
   };
-
+  // handle prev
   const handlePrev = () => {
     setCurrentQues(currentQues - 1);
+    setChecked(regAns[currentQues - 1]);
+  };
+  // handle Submit
+  const handleSubmit = () => {
+    setChecked("");
+    navigate("/submit");
   };
 
   return (
@@ -51,7 +55,6 @@ const Quiz = ({ question }) => {
             <h5>Question 1-50</h5>
             <h4>{ques}</h4>
             <h5>Choose one</h5>
-            <h5>Result = {tempResult} </h5>
           </div>
           <form>
             <div className="ques-input">
@@ -61,7 +64,7 @@ const Quiz = ({ question }) => {
                   name="quiz-ques"
                   id="q1"
                   value="a"
-                  checked={checkValue === "a"}
+                  checked={checked === "a"}
                   onChange={handleChange}
                 />
                 <label htmlFor="q1">{option[0].a}</label>
@@ -73,7 +76,7 @@ const Quiz = ({ question }) => {
                   name="quiz-ques"
                   id="q2"
                   value="b"
-                  checked={checkValue === "b"}
+                  checked={checked === "b"}
                   onChange={handleChange}
                 />
                 <label htmlFor="q2">{option[0].b}</label>
@@ -85,7 +88,7 @@ const Quiz = ({ question }) => {
                   name="quiz-ques"
                   id="q3"
                   value="c"
-                  checked={checkValue === "c"}
+                  checked={checked === "c"}
                   onChange={handleChange}
                 />
                 <label htmlFor="q3">{option[0].c}</label>
@@ -97,7 +100,7 @@ const Quiz = ({ question }) => {
                   name="quiz-ques"
                   id="q4"
                   value="d"
-                  checked={checkValue === "d"}
+                  checked={checked === "d"}
                   onChange={handleChange}
                 />
                 <label htmlFor="q4">{option[0].d}</label>
@@ -109,8 +112,10 @@ const Quiz = ({ question }) => {
           <button type="button" onClick={handlePrev}>
             Prev
           </button>
-          {submit ? (
-            <button type="button">Submit</button>
+          {currentQues === question.length - 1 ? (
+            <button className="submit" type="button" onClick={handleSubmit}>
+              Submit
+            </button>
           ) : (
             <button type="button" onClick={handleNext}>
               Next
